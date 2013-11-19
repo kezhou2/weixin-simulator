@@ -17,7 +17,7 @@ settings = {
     "FromUserName": "oLXjgjiWeAS1gfe4ECchYewwoyTc",
 
     # URL of your Wexin handler.
-    "url": "http://localhost:8080/weixin",
+    "url": "http://localhost:8080/weixin?",
 
     # These will be displayed in GUI.
     "mp_display_name": "APP",
@@ -72,7 +72,7 @@ def send():
             "id": str(random.random())[-10:]
         }
 
-        qs = "?signature=%s&timestamp=%s&nonce=%s" % \
+        qs = "signature=%s&timestamp=%s&nonce=%s" % \
             mix(int(msg["time"]), msg["id"])
         receive(msg["time"], post(settings["url"]+qs, TPL_TEXT % msg))
 
@@ -111,7 +111,7 @@ def follow():
         "event": "subscribe",
         "key": ""       # `EventKey` in `subscribe` event is empty.
     }
-    qs = "?signature=%s&timestamp=%s&nonce=%s" % \
+    qs = "signature=%s&timestamp=%s&nonce=%s" % \
         mix(int(msg["time"]), str(random.random())[-10:])
     receive(msg["time"], post(settings["url"]+qs, TPL_EVENT % msg))
 
